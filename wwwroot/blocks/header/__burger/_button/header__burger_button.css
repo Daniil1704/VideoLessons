@@ -1,0 +1,9 @@
+.header__burger_button {
+    display: none;
+    width: 35px;
+    height: 4px;
+    background: #fff;
+    margin: 5px;
+    border-radius: 10px;
+    transition: 0.3s;
+}

@@ -1,0 +1,13 @@
+@import url(_help/footer__name_help.css);
+@import url(_law/footer__name_law.css);
+@import url(_laws/footer__name_laws.css);
+@import url(_lawsу/footer__name_lawsy.css);
+
+.footer__name { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 61px;
+    width: 80%;
+    margin: 0 auto;
+}

@@ -1,0 +1,16 @@
+@import url(__search/header__search.css);
+@import url(__name/header__name.css);
+@import url(__logo/header__logo.css);
+@import url(__nn/header__nn.css);
+@import url(__burger/header__burger.css);
+@import url(__menu/header__menu.css);
+@import url(__link/header__link.css);
+@import url(__links/header__links.css);
+@import url(__names/header__names.css);
+@import url(__menus/header__menus.css);
+.header {
+    background-color: #E5E5E5;
+    margin-bottom: 20px; 
+    max-width: 1920px;
+    margin: 0 auto;
+}

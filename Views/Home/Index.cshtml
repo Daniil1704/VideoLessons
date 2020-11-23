@@ -1,0 +1,390 @@
+﻿@using System.Globalization
+@using Kendo.Mvc
+
+@{
+    ViewData["Title"] = "Уроки";
+}
+
+<button class="k-button" id="expand">Развернуть</button>
+<button class="k-button" id="collapse">Свернуть</button>
+
+@*<div class="row">
+    <div class="col-12">*@
+<div id="grid-wrap">
+
+
+    @(Html.Kendo().Grid<VideoLessons.Models.Lessons>()
+                .Name("grid")
+                .Mobile(MobileMode.Auto)
+                .Columns(columns =>
+                {
+                    //columns.Select().Width(75).HtmlAttributes(new { @class = "checkbox-align" }).HeaderHtmlAttributes(new { @class = "checkbox-align" });
+                    columns.Bound(p => p.ID_sort).Hidden(true);
+                    columns.Bound(p => p.Title).
+                    ClientGroupHeaderTemplate("#=value#").Hidden(true).Filterable(false);
+                    columns.Bound(p => p.Description).ClientTemplate("#=mylink(data)#").Width(500);
+                    columns.Bound(p => p.Timeline).Width(140).ClientTemplate(
+                    @"<div class='product-photo'
+                    style='background-image: url(" + @Url.Content("~/images/clock2.png") + ");'>" +
+                    "</div><div class='product-name'>#: Timeline #</div>").ClientGroupHeaderColumnTemplate("Частей: #=count#");
+
+                    columns.Bound(p => p.Rating).Width(140)
+                    .ClientTemplate(
+                   @"<div class='product-photo'
+                    style='background-image: url(" + @Url.Content("~/images/smile2.png") + ");'>" +
+                   "</div><div class='product-name'>#: Rating #</div>").ClientGroupHeaderColumnTemplate("Средний: #=average#");;
+
+                    columns.Bound(p => p.Moving).Width(140).ClientTemplate(
+                    @"<div class='product-photo'
+                    style='background-image: url(" + @Url.Content("~/images/dorznak.png") + ");'>" +
+                    "</div><div class='product-name'>#: Moving #</div>").ClientGroupHeaderColumnTemplate("Всего: #=sum#");;
+                    columns.Bound(p => p.Creator);
+
+                })
+                    .Navigatable()
+                    //.Sortable(sortable => sortable
+                    //    .AllowUnsort(true)
+                    //    .SortMode(GridSortMode.MultipleColumn)
+                    //    .ShowIndexes(true))
+                    .Scrollable()
+                    .HtmlAttributes(new { style = "height:750px;" })
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Events(events => events.Error("error_handler"))
+                        .ServerOperation(false)
+                        .Sort(x => x.Add(p => p.ID_sort).Ascending())
+                        .Aggregates(aggregates =>
+                        {
+                            aggregates.Add(p => p.Timeline).Count();
+                            aggregates.Add(p => p.Rating).Average();
+                            aggregates.Add(p => p.Moving).Sum();
+                        })
+                        .Model(model =>
+                        {
+                            model.Id(p => p.ID);
+                            model.Field(p => p.ID_sort);
+                            model.Field(p => p.Title);
+                        })
+                        .Group(x =>
+                        {
+                            x.Add(y => y.Title);
+                        })
+                        .Read(read => read.Action("Lessons_Read", "Lessons"))
+                   )
+                    .Events(events => events.DataBound("dataBound"))
+                    .Resizable(resize => resize.Columns(true))
+                    .ToolBar(t => t.Search())
+                    .Search(search =>
+                    {
+                       search.Field(f => f.Title);
+                       search.Field(f => f.Description);
+                       search.Field(f => f.Creator);
+                    })
+            )
+    @*
+
+        .Sortable()
+           .Sort(x => x.Add(p => p.ID).Ascending())
+
+
+        100%;
+
+          columns.Bound(p => p.Description).Width(150).
+                            MinScreenWidth(600).ClientTemplate("#=mylink(data)#");
+                    columns.Bound(p => p.Timeline).Width(50).ClientTemplate(
+                    @"<div class='product-photo'
+                    style='background-image: url(" + @Url.Content("~/images/clock.png") + ");'>" +
+                    "</div><div class='product-name'>#: Timeline #</div>");
+                    columns.Bound(p => p.Rating).Width(50).ClientTemplate(
+                    @"<div class='product-photo'
+                    style='background-image: url(" + @Url.Content("~/images/happy_star.png") + ");'>" +
+                    "</div><div class='product-name'>#: Rating #</div>");
+                    columns.Bound(p => p.Moving).Width(50).ClientTemplate(
+                    @"<div class='product-photo'
+                    style='background-image: url(" + @Url.Content("~/images/dorznak.png") + ");'>" +
+                    "</div><div class='product-name'>#: Moving #</div>");
+                    columns.Bound(p => p.Creator).Width(100);
+
+
+
+
+        <kendo-grid name="grid" height="550">
+
+            <columns>
+
+                <column field="Title" template="#=mylink(data)#" title="Тема урока">
+
+                </column>
+
+                <column field="Description" title="Примечание" />
+                <column field="Timeline" title="Длительность" width="200" />
+                <column field="Creator" title="Автор" />
+                <column field="Rating" title="Рейтинг">
+                    <kendo-rating name="rating" min="1" max="6" value="3"></kendo-rating>
+                </column>
+                <column field="Moving" title="Просмотры" />
+
+            </columns>
+            <scrollable enabled="true" />
+            <sortable enabled="true" />
+            <filterable enabled="true" />
+            <groupable enabled="true" />
+            <datasource type="DataSourceTagHelperType.Ajax">
+
+                <transport>
+                    <read url="@Url.Action("Lessons_Read", "Lessons")" />
+                </transport>
+                <sorts>
+                    <sort field="Description" direction="asc" />
+                </sorts>
+                <groups>
+                    <group field="Title" direction="asc" />
+                </groups>
+            </datasource>
+
+        </kendo-grid>
+
+
+              public ActionResult HierarchyBinding_Orders(int employeeID, [DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(GetOrders()
+                .Where(order => order.EmployeeID == employeeID)
+                .ToDataSourceResult(request));
+        }
+            .Read(read => read.Action("HierarchyBinding_Orders", "Grid", new { employeeID = "#=EmployeeID#" }))
+
+
+            Html.Kendo().Rating()
+        .Name("ratingLabelDisabled")
+        .Min(1)
+        .Max(10)
+        .Value(3)
+         .Label(false)
+            .HtmlAttributes(new { data_bind = "value: Rating" })
+            .Selection("continuous")
+        .ToClientTemplate().Value
+
+
+    *@
+
+</div>
+@*</div>*@
+
+@*
+
+                <kendo-rating name="rating" min="1" max="6" value="3" selection="single"></kendo-rating>
+
+                <search fields="@(new string[] { "ContactName", "Country"})">
+        </search>
+
+            ClientTemplate(Html.Kendo().Rating()
+                .Name("rating_#=ProductID#")
+                .Min(1)
+                .Max(5)
+                .Label(false)
+                .HtmlAttributes(new { data_bind = "value: CustomerRating" })
+                .Selection("continuous")
+                .ToClientTemplate().Value
+            );
+
+                        <toolbar>
+                <toolbar-button name="search"></toolbar-button>
+            </toolbar>
+
+                "<a href='" +
+                    Url.Action("ProductDetails", "Product") +
+                    "/#= ProductID #'" +
+                    ">Show Product Details</a>"
+
+                columns.Bound(o => o.OrderDate).Format("{0:d}"); // Will use the short date pattern
+
+                .Template(@<text>
+                @Html.ActionLink("Show Product Details", "ProductDetails", new { id = @item.ProductID })>
+            </text>);
+
+        .k-grid .k-grid-toolbar .k-grid-add,
+    .k-grid .k-grid-toolbar .k-grid-excel {
+        float: left;
+    }
+
+
+*@
+
+<!-- Hotjar Tracking Code for www.dikalov.com -->
+<script>
+    (function (h, o, t, j, a, r) {
+        h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+        h._hjSettings = { hjid: 2075621, hjsv: 6 };
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script'); r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+</script>
+
+
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    //function onDataBound(e) {
+    //    var grid = this;
+    //    grid.table.find("tr").each(function () {
+    //        var dataItem = grid.dataItem(this);
+    //        var themeColor = dataItem.Discontinued ? 'success' : 'error';
+    //        var text = dataItem.Discontinued ? 'available' : 'not available';
+
+    //        $(this).find('script').each(function () {
+    //            eval($(this).html());
+    //        });
+
+    //        $(this).find(".badgeTemplate").kendoBadge({
+    //            themeColor: themeColor,
+    //            text: text,
+    //        });
+
+
+    //        kendo.bind($(this), dataItem);
+    //    });
+    //}
+
+    function returnFalse() {
+        return false;
+    }
+</script>
+
+
+<script>
+
+
+    var one = 0;
+    function dataBound() {
+        //this.expandRow(this.tbody.find("tr.k-master-row").first());
+        if (one == 0) {
+            var skipone = 1;
+            var grid = $("#grid").data("kendoGrid");
+            $(".k-grouping-row").each(function (e) {
+                if (skipone == 0) { skipone = 1; } else {
+                    grid.collapseRow(this);
+                }
+            });
+
+            one++;
+
+        }
+        //$("#grid").data("kendoGrid").expandRow($("#grid").data("kendoGrid").tbody.find("tr.k-master-row").first());
+    }
+
+
+
+    $(document).ready(function () {
+        var isMobile = Boolean(kendo.support.mobileOS);
+
+        if (isMobile) {
+            $("#grid").data("kendoGrid").resize();
+        }
+    });
+
+    function mylink(product) {
+        var html = kendo.format("<a class='hrf' href='{0}'>{1} {2}</a>",
+            product.Link + "?v_id=" + product.ID,
+            product.Title.slice(4),
+            product.Description
+        );
+        return html;
+    }
+
+    //function getRatingTemplate(product) {
+    //    var html = kendo.format("<kendo-rating name=\"rating\" min=\"1\" max=\"10\" value=\"{0}\" <label template=\"<span>#={0}# out of #={1}#</span>\"/></kendo-rating>",
+    //        product.Rating, product.Rating
+    //    );
+    //    return html;
+    //}
+
+
+    //function createRating(e, element) {
+    //    var grid = $("#grid").getKendoGrid();
+    //    var dataItem = grid.dataItem(element);
+    //    var rating = $(element).find('.ratingInGrid');
+    //    var items = e.sender.items();
+    //    items.kendoRating({
+    //        min: 1,
+    //        max: 5,
+    //        selection: "continuous",
+    //        precision: "half",
+    //        value: dataItem.rating
+    //    });
+    //}
+
+
+    $('#expand').click(function (e) {
+        var grid = $("#grid").data("kendoGrid");
+        $(".k-grouping-row").each(function (e) {
+            grid.expandRow(this);
+        });
+    })
+
+    $('#collapse').click(function (e) {
+        var grid = $("#grid").data("kendoGrid");
+        $(".k-grouping-row").each(function (e) {
+            grid.collapseRow(this);
+        });
+    })
+
+</script>
+
+<style>
+
+    .k-grid .k-grid-search {
+        float: left;
+    }
+
+    .product-photo {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-size: 32px 35px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 32px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        margin-left: 5px;
+    }
+
+    .product-name {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        padding-left: 3px;
+    }
+
+    .k-grid tr .checkbox-align {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+
+    .hrf:link {
+        color: blue;
+    }
+
+    .hrf:visited {
+        color: blue;
+    }
+
+    .hrf:hover {
+        color: red;
+    }
+</style>

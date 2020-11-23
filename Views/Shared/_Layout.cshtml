@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+    <title>@ViewData["Title"] - Гипроникель</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="./blocks/index.css" />
+        <link rel="stylesheet" href="./blocks/normalize.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/blocks/index.css" />
+        <link rel="stylesheet" href="~/blocks/normalize.css" />
+    </environment>
+    <link href="https://kendo.cdn.telerik.com/2020.1.114/styles/kendo.bootstrap-v4.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.114/js/kendo.aspnetmvc.min.js"></script>
+    <meta name="mailru-domain" content="e4sqpeU9nrLubb3i" />
+</head>
+<body>
+    @*class="k-content">*@
+    @*<nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid d-flex justify-content-between p-0">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">Гипроникель</a>
+                <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle">
+                    <span class="k-icon k-i-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <div id="responsive-panel" class="navbar navbar-dark bg-light mb-4">
+            <kendo-responsivepanel name="responsive-panel" auto-close="false" breakpoint="768" orientation="top">
+                @(Html.Kendo().Menu()
+                            .Name("Menu")
+                            .Items(items =>
+                            {
+                                items.Add().Text("Курсы Bentley").Action("Index", "Home", new { area = "" });
+                                //items.Add().Text("О нас").Action("About", "Home", new { area = "" });
+                                //items.Add().Text("Контакты").Action("Contact", "Home", new { area = "" });
+                            })
+                )
+            </kendo-responsivepanel>
+        </div>*@
+
+
+        <header class="header">
+            <div class="header__nn">
+                <img src="./img/logo.png" alt="Лого" class="header__logo" />
+                <div class="header__search">
+                    <input class="header__search_input" placeholder="Поиск..."/>
+                </div>
+                <div class="header__names">
+                    <img class="header__name_icon" src="./img/icon.png" alt="иконка">
+                    <h2 class="header__name">Иванов Иван Иванович</h2>
+                </div>
+
+            </div>
+
+    <div class="header__menu">
+        <div class="header__menus">
+            <div class="header__menu_headman">
+                <a href="" class="header__menu_name-headman">Центр Обучения</a>
+            </div>
+            <div class="header__menu_line-up">
+                <div class="header__decorate"></div>
+                <div class="header__menu_nav">
+                    <a href="" class="header__link">Программа курса</a>
+                    <a href="" class="header__link">Тесты</a>
+                    <a href="" class="header__link">Поддержка</a>
+                </div>
+            </div>
+            <div class="header__burger">
+                <button class="header__burger_button"></button>
+            </div>
+        </div>
+    </div>
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__line">
+            <div class="footer__line_left">
+
+            </div>
+            <div class="footer__line_up">
+
+            </div>
+            <div class="footer__line_right">
+
+            </div>
+        </div>
+        <div class="footer__name">
+            <div class="footer__name_help">
+                <a class="footer__name_help-support">
+                    Техническая поддержка: nornik@nornik.ru, +7 (800) 232-23-12
+                </a>
+                <a class="footer__name_help-manager">
+                    Менеджер проекта:Иван Иванов,nornik@nornik.ru, +7 (921) 021-02-11
+                </a>
+            </div>
+            <div class="footer__name_laws">
+                <a class="footer__name_law">
+                    Все права защищены © 2020 Гипроникель
+                </a>
+            </div>
+            <div class="footer__name_lawsу">
+
+            </div>
+        </div>
+
+    </footer>
+
+    @*<footer class="footer text-center d-flex align-items-center">
+            <div class="container-fluid">
+                <p class="text-muted">
+                    Все права защищены © @DateTime.Now.Year Гипроникель
+                </p>
+            </div>
+        </footer>*@
+
+    <environment names="Development">
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

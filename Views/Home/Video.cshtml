@@ -1,0 +1,571 @@
+﻿@using System.Globalization
+@using Kendo.Mvc.UI
+
+@{
+    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
+    ViewData["Title"] = "Видеоплеер";
+}
+
+<div class="k-listgroup-item" style="
+                max-width: 925px;
+                margin: 0 auto;">
+    <h4>@ViewBag.Lesson.Title</h4>
+
+</div>
+
+<div class="k-listgroup-item" style="
+                max-width: 925px;
+                margin: 0 auto;">
+    @(Html.Kendo().Rating()
+                .Name("rating")
+                .Min(1)
+                .Max(10)
+                .Value(5)
+            )
+</div>
+
+<div class="k-listgroup-item" style="
+                max-width: 925px;
+                margin: 0 auto;">
+    @(Html.Kendo().MediaPlayer()
+            .Name("GiproPlayer")
+            .AutoPlay(false)
+            .Events(e => e.Play("onPlay"))
+            .Navigatable(true)
+            .Media(m => m
+                .Title(@ViewBag.Lesson.Description)
+                .Source(@ViewBag.Lesson.source)
+
+            )
+            .HtmlAttributes(new { style = "height:360px" })
+    )
+</div>
+<div class="k-listgroup-item" style="
+                max-width: 925px;
+                margin: 0 auto;">
+    <ul class="options">
+        @{
+            var i = 1;
+            foreach (string onetitle in ViewBag.Lesson.Subtitles)
+            {
+                <li>
+                    <a onClick="seek_player(@ViewBag.Lesson.JsTimings[i-1]);" class="changeable" href="#">@onetitle</a>
+                </li>
+                i++;
+            }
+        }
+    </ul>
+</div>
+
+@*
+    .Source(new[] {
+                     new { quality = "480p", url = "@ViewBag.Lesson.source" },
+                     new { quality = "480p", url = "@ViewBag.Lesson.source" }
+                })
+
+
+
+    <h4>Rating Events</h4>
+            @(Html.Kendo().Rating()
+                .Name("rating")
+                .Min(1)
+                .Max(6)
+                .Value(3)
+                .Events(e => e.Select("onSelect").Change("onChange"))
+            )
+
+            private static string GetLoggingPath()
+    {
+        // Verify the code is running on Windows.
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Fabrikam\AssetManagement"))
+            {
+                if (key?.GetValue("LoggingDirectoryPath") is string configuredPath)
+                    return configuredPath;
+            }
+        }
+
+        // This is either not running on Windows or no logging path was configured,
+        // so just use the path for non-roaming user-specific data files.
+        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        return Path.Combine(appDataPath, "Fabrikam", "AssetManagement", "Logging");
+    }
+
+
+            <div class="demo-section k-content" style="
+                    max-width: 925px;
+                    margin: 0 auto;">
+                <h4>@ViewBag.Lesson.Title (@ViewBag.Lesson.Description)  </h4>
+                @(Html.Kendo().Rating()
+                    .Name("rating")
+                    .Min(1)
+                    .Max(10)
+                    .Value(5)
+                )
+            </div>
+
+
+            <div class="demo-section k-content wide" style="
+                    max-width: 925px;
+                    margin: 0 auto;">
+
+                @(Html.Kendo().MediaPlayer()
+                    .Name("GiproPlayer")
+                    .AutoPlay(false)
+                    .Events(e => e.Play("onPlay"))
+                    .HtmlAttributes(new { style = "height:360px" })
+                )
+
+                <div class="k-list-container playlist">
+                    @(Html.Kendo().ListView<VideoLessons.Models.Video>()
+                        .Name("listView")
+                        .TagName("ul")
+                        .ClientTemplateId("template")
+                        .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Read(read => read.Action("Videos_Read", "Video"))
+                            )
+                        .Selectable(true)
+                        .Events(e => e
+                            .Change("onChange")
+                            .DataBound("onDataBound"))
+                    )
+
+                </div>
+            </div>*@
+
+@*
+            <div class="box wide" style="
+                max-width: 644px;
+                text-align: center;
+                margin: 0 auto;">
+            <div id="console_log">Просмотров: 0</div>
+            </div>
+
+            foreach (var category in Model)
+        {
+            <h3><u>@category.Name</u></h3>
+            <div>
+                <ul>
+                    @foreach (var product in Model.Products)
+                    {
+                        // cut for brevity, need to add back more code from original
+                        <li>@product.Title</li>
+                    }
+                </ul>
+            </div>
+
+        @ViewBag.Lesson
+        }
+
+        <div class="demo-section k-content wide" style="max-width: 644px;">
+        @(Html.Kendo().MediaPlayer()
+            .Name("MediaPlayer")
+            .AutoPlay(true)
+            .Media(m => m
+                .Title("Build HIPAA-Compliant Healthcare Apps Fast")
+                .Source("https://www.youtube.com/watch?v=dyvxivS5EcI")
+            )
+            .HtmlAttributes(new { style = "height:360px" })
+        )
+    </div>
+*@
+
+
+@*<div class="box wide" style="
+            max-width: 800px;
+            margin: 0 auto;
+            ">
+        <div class="box-col">
+            <p>
+                <ul class="options">
+
+
+                    @{
+                        var i = 1;
+                        foreach (string onetitle in ViewBag.Lesson.Subtitles)
+                        {
+                            <li>
+                                <a onClick="seek_player(@ViewBag.Lesson.JsTimings[i-1]);" class="changeable" href="#">@onetitle</a>
+                            </li>
+                            i++;
+                        }
+                    }
+                </ul>
+            </p>
+        </div>
+    </div>*@
+
+
+
+
+@*<li><a class="changeable" id="go1" href="#">00:00:00 - Организационные вопросы</a></li>
+    <li><a class="changeable" id="go2" href="#">00:02:50 - Введение в ProjectWise</a></li>
+    <li><a class="changeable" id="go3" href="#">00:04:50 - Connection  Client</a></li>
+    <li><a class="changeable" id="go4" href="#">00:06:30 - ProjectWise Explorer. Запуск, подключение к источнику данных</a></li>
+    <li><a class="changeable" id="go5" href="#">00:08:50 - Рабочий каталог на локальном диске</a></li>
+    <li><a class="changeable" id="go6" href="#">00:11:00 - Изменение пароля</a></li>
+    <li><a class="changeable" id="go7" href="#">00:11:20 - Пользовательский интерфейс ProjectWise Explorer</a></li>
+    <li><a class="changeable" id="go8" href="#">00:15:20 - Вопросы по разделу "Авторизация и интрефейс"</a></li>
+    <li><a class="changeable" id="go9" href="#">00:16:50 - Практическое задание (Смена пароля, авторизация в Connection Client)</a></li>
+    <li><a class="changeable" id="go10" href="#">00:26:50 - Управляемая среда ProjectWise (из чего состоит источник данных)</a></li>
+    <li><a class="changeable" id="go11" href="#">00:28:20 - Папки и рабочие области (Рабочая область и ее атрибуты)</a></li>
+    <li><a class="changeable" id="go12" href="#">00:31:08 - Типовая структура источника данных</a></li>
+    <li><a class="changeable" id="go13" href="#">00:35:30 - Справочники</a></li>
+    <li><a class="changeable" id="go14" href="#">00:37:10 - Права доступа</a></li>
+    <li><a class="changeable" id="go15" href="#">00:38:35 - Уровни доступа (галочки)</a></li>
+    <li><a class="changeable" id="go16" href="#">00:41:10 - Виды прав (папка/рабочий процесс)</a></li>
+    <li><a class="changeable" id="go17" href="#">00:42:15 - Вопрос (группы доступа пользователей)</a></li>
+    <li><a class="changeable" id="go18" href="#">00:45:15 - Создание папок и рабочих областей</a></li>
+    <li><a class="changeable" id="go19" href="#">00:46:00 - Повышение до рабочей области</a></li>
+    <li><a class="changeable" id="go20" href="#">00:50:00 - Справочники</a></li>
+    <li><a class="changeable" id="go21" href="#">00:51:00 - Практическое задание и вопросы по разделу "Папки и рабочие области"</a></li>
+    <li><a class="changeable" id="go22" href="#">00:58:50 - DGN indexing</a></li>
+    <li><a class="changeable" id="go23" href="#">01:00:40 - Документ ProjectWise</a></li>
+    <li><a class="changeable" id="go24" href="#">01:03:50 - Выдача и возврат документа (и возможные обходные пути)</a></li>
+    <li><a class="changeable" id="go25" href="#">01:12:20 - Вопрос (глубина версионности и интеграция бекапов)</a></li>
+    <li><a class="changeable" id="go26" href="#">01:14:00 - Вопрос (ограничение времени работы с файлом)</a></li>
+    <li><a class="changeable" id="go27" href="#">01:15:50 - Статусы документа</a></li>
+    <li><a class="changeable" id="go28" href="#">01:16:40 - Атрибуты документа и оболочки</a></li>
+    <li><a class="changeable" id="go29" href="#">01:20:45 - Вопрос (назначение оболочки для папки)</a></li>
+    <li><a class="changeable" id="go30" href="#">01:21:15 - Вопрос (перенос файла)</a></li>
+    <li><a class="changeable" id="go31" href="#">01:22:40 - Вопрос (создание оболочек)</a></li>
+    <li><a class="changeable" id="go32" href="#">01:23:10 - Создание документа (перетаскивание)</a></li>
+    <li><a class="changeable" id="go33" href="#">01:25:15 - Создание документа в оболочке</a></li>
+    <li><a class="changeable" id="go34" href="#">01:26:35 - Мастер создания документа</a></li>
+    <li><a class="changeable" id="go35" href="#">01:27:55 - Редактирование документа</a></li>
+    <li><a class="changeable" id="go36" href="#">01:31:40 - Создание новой версии документа</a></li>
+    <li><a class="changeable" id="go37" href="#">01:35:30 - Вопрос (объем фалов версий)</a></li>
+    <li><a class="changeable" id="go38" href="#">01:37:00 - Вопрос (сравнение версий)</a></li>
+    <li><a class="changeable" id="go39" href="#">01:40:00 - Редактирование атрибутов документа</a></li>
+    <li><a class="changeable" id="go40" href="#">01:41:30 - Шаблоны документов</a></li>
+    <li><a class="changeable" id="go41" href="#">01:44:10 - Практическое задание (создание и редактирование документа, редактирование атрибутов, создание документа по шаблону)</a></li>
+    <li><a class="changeable" id="go42" href="#">01:45:00 - Вопрос (замена файла в документе)</a></li>
+    <li><a class="changeable" id="go43" href="#">01:47:00 - Вопрос (назначение оболочки папке)</a></li>
+    <li><a class="changeable" id="go44" href="#">01:51:00 - Вопрос (обновление информации)</a></li>
+    <li><a class="changeable" id="go45" href="#">01:51:35 - Вопрос (подписка на обновления)</a></li>
+    <li><a class="changeable" id="go46" href="#">01:55:30 - Вопрос (разница между "Возврат" и "Отправить изменения на сервер")</a></li>
+    <li><a class="changeable" id="go47" href="#">01:56:00 - Разбор ошибки (не внеслись изменения после операции "Возврат")</a></li>
+    <li><a class="changeable" id="go48" href="#">01:58:00 - Разбор ошибки (Word)</a></li>
+    <li><a class="changeable" id="go49" href="#">02:00:00 - Вопрос (комментарий при операции "Возврат")</a></li>
+    <li><a class="changeable" id="go50" href="#">02:01:10 - Вопрос (файл не изменен)</a></li>
+    <li><a class="changeable" id="go51" href="#">02:05:30 - Вопрос (откат к строке из журнала аудита)</a></li>
+    <li><a class="changeable" id="go52" href="#">02:06:05 - Вопрос (стрелочки в окне свойств документа)</a></li>
+    <li><a class="changeable" id="go53" href="#">02:07:40 - Вопрос (разница между "Выдача" и "Открыть")</a></li>
+    <li><a class="changeable" id="go54" href="#">02:08:50 - Вопрос (правильный механизм создания пробной версии файла)</a></li>
+    <li><a class="changeable" id="go55" href="#">02:12:20 - Вопрос (редактирование старой версии документа)</a></li>
+    <li><a class="changeable" id="go56" href="#">02:15:30 - Перерыв</a></li>
+    <li><a class="changeable" id="go57" href="#">02:37:05 - Вопрос (выдача и возврат документов)</a></li>
+    <li><a class="changeable" id="go58" href="#">02:39:50 - Вопрос (обозначение рабочих областей)</a></li>
+    <li><a class="changeable" id="go59" href="#">02:40:40 - Вопрос (разница между оболочкой и рабочей областью)</a></li>
+    <li><a class="changeable" id="go60" href="#">02:43:30 - Интегрированные приложения</a></li>
+    <li><a class="changeable" id="go61" href="#">02:45:05 - Интеграция с Microsoft Word</a></li>
+    <li><a class="changeable" id="go62" href="#">02:45:30 - Вопрос (Excel)</a></li>
+    <li><a class="changeable" id="go63" href="#">02:48:45 - Интеграция с Microsoft</a></li>
+    <li><a class="changeable" id="go64" href="#">02:52:20 - Журнал аудита</a></li>
+    <li><a class="changeable" id="go65" href="#">02:53:15 - Поиск в ProjectWise</a></li>
+    <li><a class="changeable" id="go66" href="#">02:53:35 - Быстрый поиск</a></li>
+    <li><a class="changeable" id="go67" href="#">02:57:45 - Расширенный поиск</a></li>
+    <li><a class="changeable" id="go68" href="#">02:59:30 - Сохранение поиска</a></li>
+    <li><a class="changeable" id="go69" href="#">03:01:20 - Экспорт результатов поиска</a></li>
+    <li><a class="changeable" id="go70" href="#">03:03:15 - Вопрос (адрес документа как его атрибут)</a></li>
+    <li><a class="changeable" id="go71" href="#">03:03:05 - Вопрос (процент готовности файла как его атрибут)</a></li>
+    <li><a class="changeable" id="go72" href="#">03:05:45 - Печать результатов поиска</a></li>
+    <li><a class="changeable" id="go73" href="#">03:06:40 - Замечания к поискам</a></li>
+    <li><a class="changeable" id="go74" href="#">03:08:00 - Вопрос (версии папок)</a></li>
+    <li><a class="changeable" id="go75" href="#">03:09:00 - Экспорт документов</a></li>
+    <li><a class="changeable" id="go76" href="#">03:15:50 - Вопрос (восстановление экспортированных документов)</a></li>
+    <li><a class="changeable" id="go77" href="#">03:20:10 - Вопрос (обновление большого количества экспортированных документов)</a></li>
+    <li><a class="changeable" id="go78" href="#">03:21:50 - Менеджер документов</a></li>
+    <li><a class="changeable" id="go79" href="#">03:26:00 - Вопрос (экспорт как механизм бекапа)</a></li>
+    <li><a class="changeable" id="go80" href="#">03:30:05 - Необходимость одновременной работы</a></li>
+    <li><a class="changeable" id="go81" href="#">03:35:50 - Вопрос (интеграция с Autodesk)</a></li>
+    <li><a class="changeable" id="go82" href="#">03:37:25 - Вопрос (напоминание в конце рабочего дня)</a></li>
+    <li><a class="changeable" id="go83" href="#">03:38:45 - Вопрос (Datamine Micromine интеграция)</a></li>
+    <li><a class="changeable" id="go84" href="#">03:40:30 - Практическое задание (поиск, экспорт, менеджер документов)</a></li>
+    <li><a class="changeable" id="go85" href="#">03:42:10 - Необходимость Datamine Micromine в PW</a></li>
+    <li><a class="changeable" id="go86" href="#">03:43:25 - Вопрос (сортировка документов в поиске)</a></li>
+    <li><a class="changeable" id="go87" href="#">03:46:15 - Вопрос (редактирование и создание нового вида)</a></li>
+    <li><a class="changeable" id="go88" href="#">03:49:50 - Вопрос (сохранение быстрого поиска)</a></li>
+    <li><a class="changeable" id="go89" href="#">03:51:20 - Вопрос (расширенный поиск)</a></li>
+    <li><a class="changeable" id="go90" href="#">03:56:05 - Вопрос (разница между оболочкой и рабочей областью)</a></li>*@
+
+
+<script>
+
+    let view_count = 0;
+
+    function onPlay() {
+        $('#console_log').html("Просмотров: " + view_count++);
+    }
+
+    function onChange() {
+        var index = this.select().index();
+        var dataItem = this.dataSource.view()[index];
+        $("#GiproPlayer").data("kendoMediaPlayer").media(dataItem);
+    }
+
+    function onDataBound() {
+        this.select(this.element.children().first());
+    }
+
+    function seek_player(num) {
+        var mediaPlayer = $("#GiproPlayer").data("kendoMediaPlayer");
+        //mediaPlayer.length < num
+        mediaPlayer.play(); mediaPlayer.seek(num); mediaPlayer.play();
+    }
+
+
+    $(document).ready(function () {
+        var links = document.getElementsByClassName('changeable');
+        function changeColor(e) {
+            e.target.style.color = e.target.style.color ? null : 'red';
+        }
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', changeColor);
+        }
+    });
+
+
+
+        //var mediaPlayer = $("#GiproPlayer").data("kendoMediaPlayer");
+
+        //var setVolume = function () {
+        //    mediaPlayer.volume($("#volumeValue").val());
+        //};
+
+        //var seekTo = function () {
+        //    mediaPlayer.seek($("#seekValue").data("kendoNumericTextBox").value() * 1000);
+        //    mediaPlayer.play();
+        //};
+
+        //$("#volumeValue").kendoNumericTextBox({
+        //    change: setVolume,
+        //    min: 0,
+        //    max: 100,
+        //    format: "#",
+        //    decimals: 0
+        //});
+
+        //$("#seekValue").kendoNumericTextBox({
+        //    change: seekTo,
+        //    min: 0,
+        //    max: 200,
+        //    format: "#",
+        //    decimals: 0
+        //});
+
+        //$("#seekButton").click(seekTo);
+
+        //$("#volumeButton").click(setVolume);
+
+        //var move10 = function () { mediaPlayer.seek(10000); mediaPlayer.play(); }; $("#go_10").click(move10);
+        //var move25 = function () { mediaPlayer.seek(25000); mediaPlayer.play(); }; $("#go_25").click(move25);
+
+          @*@{
+              i = 0;
+              foreach (string onetitle in ViewBag.Lesson.Subtitles)
+              {
+                  //var move1 = function() { mediaPlayer.seek(0); mediaPlayer.play(); }; $("#go_1").click(move1);
+
+
+              }
+           }*@
+
+        @*@Url.Action("GetJS", "Lessons")*@
+
+        //var move1 = function () { mediaPlayer.seek(0); mediaPlayer.play(); }; $("#go_1").click(move1);
+        //var move2 = function () { mediaPlayer.seek(170000); mediaPlayer.play(); }; $("#go_2").click(move2);
+        //var move3 = function () { mediaPlayer.seek(290000); mediaPlayer.play(); }; $("#go_3").click(move3);
+        //var move4 = function () { mediaPlayer.seek(390000); mediaPlayer.play(); }; $("#go_4").click(move4);
+        //var move5 = function () { mediaPlayer.seek(530000); mediaPlayer.play(); }; $("#go_5").click(move5);
+        //var move6 = function () { mediaPlayer.seek(660000); mediaPlayer.play(); }; $("#go_6").click(move6);
+        //var move7 = function () { mediaPlayer.seek(680000); mediaPlayer.play(); }; $("#go_7").click(move7);
+        //var move8 = function () { mediaPlayer.seek(920000); mediaPlayer.play(); }; $("#go_8").click(move8);
+        //var move9 = function () { mediaPlayer.seek(1010000); mediaPlayer.play(); }; $("#go_9").click(move9);
+        //var move10 = function () { mediaPlayer.seek(1610000); mediaPlayer.play(); }; $("#go_10").click(move10);
+        //var move11 = function () { mediaPlayer.seek(1700000); mediaPlayer.play(); }; $("#go_11").click(move11);
+        //var move12 = function () { mediaPlayer.seek(1868000); mediaPlayer.play(); }; $("#go_12").click(move12);
+        //var move13 = function () { mediaPlayer.seek(2130000); mediaPlayer.play(); }; $("#go_13").click(move13);
+        //var move14 = function () { mediaPlayer.seek(2230000); mediaPlayer.play(); }; $("#go_14").click(move14);
+        //var move15 = function () { mediaPlayer.seek(2315000); mediaPlayer.play(); }; $("#go_15").click(move15);
+        //var move16 = function () { mediaPlayer.seek(2470000); mediaPlayer.play(); }; $("#go_16").click(move16);
+        //var move17 = function () { mediaPlayer.seek(2535000); mediaPlayer.play(); }; $("#go_17").click(move17);
+        //var move18 = function () { mediaPlayer.seek(2715000); mediaPlayer.play(); }; $("#go_18").click(move18);
+        //var move19 = function () { mediaPlayer.seek(2760000); mediaPlayer.play(); }; $("#go_19").click(move19);
+        //var move20 = function () { mediaPlayer.seek(3000000); mediaPlayer.play(); }; $("#go_20").click(move20);
+        //var move21 = function () { mediaPlayer.seek(3060000); mediaPlayer.play(); }; $("#go_21").click(move21);
+        //var move22 = function () { mediaPlayer.seek(3530000); mediaPlayer.play(); }; $("#go_22").click(move22);
+        //var move23 = function () { mediaPlayer.seek(3640000); mediaPlayer.play(); }; $("#go_23").click(move23);
+        //var move24 = function () { mediaPlayer.seek(3830000); mediaPlayer.play(); }; $("#go_24").click(move24);
+        //var move25 = function () { mediaPlayer.seek(4340000); mediaPlayer.play(); }; $("#go_25").click(move25);
+        //var move26 = function () { mediaPlayer.seek(4440000); mediaPlayer.play(); }; $("#go_26").click(move26);
+        //var move27 = function () { mediaPlayer.seek(4550000); mediaPlayer.play(); }; $("#go_27").click(move27);
+        //var move28 = function () { mediaPlayer.seek(4600000); mediaPlayer.play(); }; $("#go_28").click(move28);
+        //var move29 = function () { mediaPlayer.seek(4845000); mediaPlayer.play(); }; $("#go_29").click(move29);
+        //var move30 = function () { mediaPlayer.seek(4875000); mediaPlayer.play(); }; $("#go_30").click(move30);
+        //var move31 = function () { mediaPlayer.seek(4960000); mediaPlayer.play(); }; $("#go_31").click(move31);
+        //var move32 = function () { mediaPlayer.seek(4990000); mediaPlayer.play(); }; $("#go_32").click(move32);
+        //var move33 = function () { mediaPlayer.seek(5115000); mediaPlayer.play(); }; $("#go_33").click(move33);
+        //var move34 = function () { mediaPlayer.seek(5195000); mediaPlayer.play(); }; $("#go_34").click(move34);
+        //var move35 = function () { mediaPlayer.seek(5275000); mediaPlayer.play(); }; $("#go_35").click(move35);
+        //var move36 = function () { mediaPlayer.seek(5500000); mediaPlayer.play(); }; $("#go_36").click(move36);
+        //var move37 = function () { mediaPlayer.seek(5730000); mediaPlayer.play(); }; $("#go_37").click(move37);
+        //var move38 = function () { mediaPlayer.seek(5820000); mediaPlayer.play(); }; $("#go_38").click(move38);
+        //var move39 = function () { mediaPlayer.seek(6000000); mediaPlayer.play(); }; $("#go_39").click(move39);
+        //var move40 = function () { mediaPlayer.seek(6090000); mediaPlayer.play(); }; $("#go_40").click(move40);
+        //var move41 = function () { mediaPlayer.seek(6250000); mediaPlayer.play(); }; $("#go_41").click(move41);
+        //var move42 = function () { mediaPlayer.seek(6300000); mediaPlayer.play(); }; $("#go_42").click(move42);
+        //var move43 = function () { mediaPlayer.seek(6420000); mediaPlayer.play(); }; $("#go_43").click(move43);
+        //var move44 = function () { mediaPlayer.seek(6660000); mediaPlayer.play(); }; $("#go_44").click(move44);
+        //var move45 = function () { mediaPlayer.seek(6695000); mediaPlayer.play(); }; $("#go_45").click(move45);
+        //var move46 = function () { mediaPlayer.seek(6930000); mediaPlayer.play(); }; $("#go_46").click(move46);
+        //var move47 = function () { mediaPlayer.seek(6960000); mediaPlayer.play(); }; $("#go_47").click(move47);
+        //var move48 = function () { mediaPlayer.seek(7080000); mediaPlayer.play(); }; $("#go_48").click(move48);
+        //var move49 = function () { mediaPlayer.seek(7200000); mediaPlayer.play(); }; $("#go_49").click(move49);
+        //var move50 = function () { mediaPlayer.seek(7270000); mediaPlayer.play(); }; $("#go_50").click(move50);
+        //var move51 = function () { mediaPlayer.seek(7530000); mediaPlayer.play(); }; $("#go_51").click(move51);
+        //var move52 = function () { mediaPlayer.seek(7565000); mediaPlayer.play(); }; $("#go_52").click(move52);
+        //var move53 = function () { mediaPlayer.seek(7660000); mediaPlayer.play(); }; $("#go_53").click(move53);
+        //var move54 = function () { mediaPlayer.seek(7730000); mediaPlayer.play(); }; $("#go_54").click(move54);
+        //var move55 = function () { mediaPlayer.seek(7940000); mediaPlayer.play(); }; $("#go_55").click(move55);
+        //var move56 = function () { mediaPlayer.seek(8130000); mediaPlayer.play(); }; $("#go_56").click(move56);
+        //var move57 = function () { mediaPlayer.seek(9425000); mediaPlayer.play(); }; $("#go_57").click(move57);
+        //var move58 = function () { mediaPlayer.seek(9590000); mediaPlayer.play(); }; $("#go_58").click(move58);
+        //var move59 = function () { mediaPlayer.seek(9640000); mediaPlayer.play(); }; $("#go_59").click(move59);
+        //var move60 = function () { mediaPlayer.seek(9810000); mediaPlayer.play(); }; $("#go_60").click(move60);
+        //var move61 = function () { mediaPlayer.seek(9905000); mediaPlayer.play(); }; $("#go_61").click(move61);
+        //var move62 = function () { mediaPlayer.seek(9930000); mediaPlayer.play(); }; $("#go_62").click(move62);
+        //var move63 = function () { mediaPlayer.seek(10125000); mediaPlayer.play(); }; $("#go_63").click(move63);
+        //var move64 = function () { mediaPlayer.seek(10340000); mediaPlayer.play(); }; $("#go_64").click(move64);
+        //var move65 = function () { mediaPlayer.seek(10395000); mediaPlayer.play(); }; $("#go_65").click(move65);
+        //var move66 = function () { mediaPlayer.seek(10415000); mediaPlayer.play(); }; $("#go_66").click(move66);
+        //var move67 = function () { mediaPlayer.seek(10665000); mediaPlayer.play(); }; $("#go_67").click(move67);
+        //var move68 = function () { mediaPlayer.seek(10770000); mediaPlayer.play(); }; $("#go_68").click(move68);
+        //var move69 = function () { mediaPlayer.seek(10880000); mediaPlayer.play(); }; $("#go_69").click(move69);
+        //var move70 = function () { mediaPlayer.seek(10995000); mediaPlayer.play(); }; $("#go_70").click(move70);
+        //var move71 = function () { mediaPlayer.seek(10985000); mediaPlayer.play(); }; $("#go_71").click(move71);
+        //var move72 = function () { mediaPlayer.seek(11145000); mediaPlayer.play(); }; $("#go_72").click(move72);
+        //var move73 = function () { mediaPlayer.seek(11200000); mediaPlayer.play(); }; $("#go_73").click(move73);
+        //var move74 = function () { mediaPlayer.seek(11280000); mediaPlayer.play(); }; $("#go_74").click(move74);
+        //var move75 = function () { mediaPlayer.seek(11340000); mediaPlayer.play(); }; $("#go_75").click(move75);
+        //var move76 = function () { mediaPlayer.seek(11750000); mediaPlayer.play(); }; $("#go_76").click(move76);
+        //var move77 = function () { mediaPlayer.seek(12010000); mediaPlayer.play(); }; $("#go_77").click(move77);
+        //var move78 = function () { mediaPlayer.seek(12110000); mediaPlayer.play(); }; $("#go_78").click(move78);
+        //var move79 = function () { mediaPlayer.seek(12360000); mediaPlayer.play(); }; $("#go_79").click(move79);
+        //var move80 = function () { mediaPlayer.seek(12605000); mediaPlayer.play(); }; $("#go_80").click(move80);
+        //var move81 = function () { mediaPlayer.seek(12950000); mediaPlayer.play(); }; $("#go_81").click(move81);
+        //var move82 = function () { mediaPlayer.seek(13045000); mediaPlayer.play(); }; $("#go_82").click(move82);
+        //var move83 = function () { mediaPlayer.seek(13125000); mediaPlayer.play(); }; $("#go_83").click(move83);
+        //var move84 = function () { mediaPlayer.seek(13230000); mediaPlayer.play(); }; $("#go_84").click(move84);
+        //var move85 = function () { mediaPlayer.seek(13330000); mediaPlayer.play(); }; $("#go_85").click(move85);
+        //var move86 = function () { mediaPlayer.seek(13405000); mediaPlayer.play(); }; $("#go_86").click(move86);
+        //var move87 = function () { mediaPlayer.seek(13575000); mediaPlayer.play(); }; $("#go_87").click(move87);
+        //var move88 = function () { mediaPlayer.seek(13790000); mediaPlayer.play(); }; $("#go_88").click(move88);
+        //var move89 = function () { mediaPlayer.seek(13880000); mediaPlayer.play(); }; $("#go_89").click(move89);
+        //var move90 = function () { mediaPlayer.seek(14165000); mediaPlayer.play(); }; $("#go_90").click(move90);
+
+
+
+
+    @*<script src='@Url.Action("GetJS", "Home")'></script>*@
+
+    //CommonAction.GetID = function test(SID) {
+    //    var months = null;
+    //    if (SID != undefined && SID != 0) {
+    //        var jsonData = JSON.stringify({ SupplierID: SID });
+    //        $.ajax({
+    //            type: "POST",
+    //            contentType: "application/json; charset=utf-8",
+    //            url: 'CommonAction/GetID',
+    //            data: jsonData,
+    //            async: false,
+    //            success: function (data) {
+    //                if (data != undefined && data != "")
+    //                    months = data;
+    //            },
+    //            error: Common.AjaxErrorHandler
+    //        });
+    //    }
+    //    return months;
+    //}
+
+</script>
+
+<script type="text/x-kendo-template" id="template">
+    <li class="k-item k-state-default" onmouseover="$(this).addClass('k-state-hover')"
+        onmouseout="$(this).removeClass('k-state-hover')">
+        <span>
+            <img src="#:poster#" />
+            <h5>#:title#</h5>
+        </span>
+    </li>
+</script>
+
+<style>
+    .k-mediaplayer {
+        float: left;
+        box-sizing: border-box;
+        width: 70%;
+    }
+
+    .playlist {
+        float: left;
+        height: 360px;
+        overflow: auto;
+        width: 30%;
+    }
+
+    @@media(max-width: 800px) {
+        .playlist,
+        .k - mediaplayer {
+            width: 100%;
+        }
+    }
+
+    .playlist ul, .playlist li {
+        list - style - type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .playlist .k-item {
+        border - bottom - style: solid;
+        border-bottom-width: 1px;
+        padding: 14px 15px;
+    }
+
+        .playlist .k-item:last-child {
+            border - bottom - width: 0;
+        }
+
+    .playlist span {
+        cursor: pointer;
+        display: block;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+        .playlist span img {
+            border: 0 none;
+            display: block;
+            height: 56px;
+            object-fit: cover;
+            width: 100px;
+            float: left;
+        }
+
+    .playlist h5 {
+        display: block;
+        font-weight: normal;
+        margin: 0;
+        overflow: hidden;
+        padding-left: 10px;
+        text-align: left;
+    }
+
+    a:visited {
+        color: #808080;
+    }
+</style>

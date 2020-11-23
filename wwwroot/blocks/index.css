@@ -1,0 +1,192 @@
+@import url(header/header.css);
+@import url(footer/footer.css);
+@import url(normalize.css);
+
+/* body, img, h2, div, nav, li{
+    border: 2px solid red;
+} */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3, a {
+    font-family: Tahoma, sans-serif
+}
+
+
+.header__name_icon {
+    width: 53px;
+}
+.header__decorate {
+    position: absolute;
+    background: #0080c8;
+    width: 100%;
+    height: 21px;
+    top: -21px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+@media screen and (max-width: 1440px) {
+    .header__names {
+        width: 15%;
+    }
+    .header__menu_headman {
+        max-width: 260px;
+    width: 100%;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .header__names {
+        width: 25%;
+    }
+    .footer__name_help {  
+        font-size: 8px;
+    }
+    .header__menu_headman {
+        max-width: 230px;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 1025px) {
+    
+    .header__link {
+        font-size: 19px;
+    }
+}
+@media screen and (max-width: 920px) {
+    .header__menu_headman {
+        max-width: 170px;
+        width: 100%;
+    }
+
+    .footer__name_help {
+        font-size: 7px;
+    }
+
+    .footer__name_law {
+        font-size: 9px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .header__menu_name-headman {
+        font-size: 18px;
+    }
+    .footer__name_help {
+        font-size: 6px;
+    }
+    .header__name {
+        font-size: 13px;
+    }
+    .header__logo {
+        height: 60px;
+        width: 211px;
+    }
+    .header__search {
+        margin-left: 34px;
+        margin-right: 34px;
+        padding: 0px 0px 0px 5px;
+    }
+    .header__decorate {
+        height: 16px;
+        top: -16px;
+    }
+    .header__menu_headman {
+        height: 41px;
+    }
+    .header__menu_nav {
+        margin-top: 10px;
+    }
+    .header__link {
+        margin-right: 25px;
+    }
+}
+
+@media screen and (max-width: 735px) {
+    .header__burger {
+        padding-left: 15px;
+        width: 15%;
+    }
+    .header__menu_nav {
+     
+        display: none;
+    }
+    .header__burger_button {
+        display: block;
+    }
+    .header__menu_headman {
+        width: 25%;
+    }
+    .header__menu_line-up {
+        width: 65%;
+    }
+    .header__menu_name-headman {
+        font-size: 16px;
+    }
+    .header__menu_headman {
+        max-width: 170px;
+        width: 100%;
+    }
+    .header__decorate {
+        height: 12px;
+        top: -12px;
+    }
+    .header__logo {
+        height: 40px;
+        width: 150px;
+    }
+    .header__name_icon {
+        width: 36px;
+    }
+    .header__name {
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 505px) {
+    .header__burger_button {
+        display: block;
+    }
+   
+    .footer__name_lawsу {
+        display: none;
+    }
+    .footer__name_help {
+        font-size: 7px;
+        width: 40%;
+    }
+    .footer__name_laws {
+        width: 40%;
+        font-size: 10px;
+    }
+    .footer__name_law {
+        font-size: 7px;
+    }
+    .header__menu_headman {
+        max-width: 150px;
+        width: 100%;
+    }
+    .header__logo {
+        height: 30px;
+        width: 100px;
+    }
+    .header__search_input {
+        font-size: 13px;
+    }
+    .header__name {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 375px){
+.header__search {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.header__menu_headman {
+    width: 60%;
+}
+.header__menu_line-up {
+    width: 40%;
+}
+}

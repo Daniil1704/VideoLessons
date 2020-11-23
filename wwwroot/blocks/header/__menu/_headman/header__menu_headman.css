@@ -1,0 +1,8 @@
+.header__menu_headman {
+    background-color: #0080C8;
+    height: 51px;
+    width: 25%;
+    border-radius: 0px 0px 50px 0px;
+   display: flex;
+   align-items: center;
+ }

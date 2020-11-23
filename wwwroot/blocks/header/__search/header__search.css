@@ -1,0 +1,11 @@
+@import url(_input/header__search_input.css);
+
+.header__search {
+    margin-left: 47px;
+    margin-right: 47px;
+    width: 60%;
+    background-color: #fff;
+    border: solid 1px #0077C8;
+    padding: 5px 0px 6px 5px;
+    border-radius: 50px;
+}

@@ -1,0 +1,8 @@
+.footer__name_help {
+    font-size: 10px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    font-family: Tahoma;
+}

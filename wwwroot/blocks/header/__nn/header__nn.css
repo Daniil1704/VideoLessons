@@ -1,0 +1,11 @@
+.header__nn {
+    background-color: #E5E5E5;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 90%;
+}

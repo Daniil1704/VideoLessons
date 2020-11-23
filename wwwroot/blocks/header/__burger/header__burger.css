@@ -1,0 +1,10 @@
+@import url(_button/header__burger_button.css);
+.header__burger {
+    display: block;
+    width: 10%;
+    background-color: #0080c8;
+    border-radius: 0px 0px 0px 50px;
+    padding-top: 4px;
+
+
+}
